@@ -1,0 +1,96 @@
+services:
+  restore-backup:
+    image: docker.io/tofran/restic-rclone:0.17.0_1.68.2
+    container_name: theboys-restore-backup
+    restart: "no"
+    command: ["-r","rclone:mega:/backups","restore","latest","--target","/", "--host","Mondo","--no-lock"]
+    environment:
+      RESTIC_HOSTNAME: "Mondo"
+      RESTIC_PASSWORD: minecraft
+      RESTIC_REPOSITORY: "rclone:mega:/backups"
+    volumes:
+      - server:/data
+      - ./rclone.conf:/root/.config/rclone/rclone.conf
+
+  mc:
+    image: minecraft-server
+    container_name: theboys
+    build: ./images/minecraft-server
+    ports:
+      - "25565:25565"
+    stop_grace_period: 15m
+    env_file: env/server.env
+    environment:
+      RCON_PASSWORD: "minecraft"
+      EULA: "TRUE"
+      ONLINE_MODE: "FALSE"
+      VERSION: "1.19.2"
+      TYPE: VANILLA
+      # TYPE: FORGE
+      # FORGE_VERSION: "43.4.0"
+      REMOVE_OLD_MODS: "FALSE"
+      RESTIC_HOSTNAME: "Mondo"
+      RESTIC_PASSWORD: minecraft
+      RESTIC_REPOSITORY: "rclone:mega:/backups"
+      RESTIC_TAG: siakoo
+      MAX_PLAYERS: 8
+      SPAWN_PROTECTION: 0
+      MEMORY: "6G"
+      MYSQL_PWD: "1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf"
+      MYSQL_USERNAME: "test_eightgray"
+      MYSQL_DB: "test_eightgray"
+      MYSQL_HOST: "ajv81.h.filess.io"
+      MYSQL_PORT: 3305
+      DUCKDNS_TOKEN: "5c4d1f47-f5cd-45a9-9942-7f2c879aa9db"
+      SEED: 6967698014342602014
+      RCLONE_CONFIG: /.config/rclone/rclone.conf
+      OPS: |
+        hAcK_Engine
+        siakoo010
+    volumes:
+      - server:/data
+      - ./mods:/data/mods
+      - ./rclone.conf:/.config/rclone/rclone.conf
+    depends_on:
+      restore-backup:
+        condition: service_completed_successfully
+
+  backups:
+    image: itzg/mc-backup
+    container_name: theboys-backup
+    environment:
+      RESTIC_HOSTNAME: "Mondo"
+      RESTIC_REPOSITORY: "rclone:mega:/backups"
+      RESTIC_PASSWORD: minecraft
+      BACKUP_INTERVAL: "30m"
+      BACKUP_METHOD: restic
+      SRC_DIR: /data/world
+      RCON_HOST: mc
+      RCON_RETRIES: -1
+      INITIAL_DELAY: "60"
+      RCLONE_CONFIG: "/config/rclone/rclone.conf"
+      PRE_BACKUP_SCRIPT: |
+        echo "Check lock backup!"
+        while [ $(restic -r rclone:mega:/backups list locks | wc -l) -gt 0 ]; do
+          echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/backups list locks | wc -l) "1"
+          sleep 10s
+        done
+        echo "Backup on!"
+    depends_on:
+      restore-backup:
+        condition: service_completed_successfully
+    entrypoint: bash
+    command: |
+        -c 'echo "Checking stale locks"
+        while [ $(restic -r rclone:mega:/backups list locks | wc -l) -gt 0 ]; do
+          echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/backups list locks | wc -l) "1"
+          sleep 10s
+        done
+        backup loop'
+    volumes:
+      - server:/data:ro
+      - ./rclone.conf:/config/rclone/rclone.conf
+
+volumes:
+  server:
+    external: true

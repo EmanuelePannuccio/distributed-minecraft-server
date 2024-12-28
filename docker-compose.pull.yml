@@ -1,0 +1,26 @@
+services:
+  restore-backup:
+    image: docker.io/tofran/restic-rclone:0.17.0_1.68.2
+    container_name: theboys-restore-backup
+    restart: "no"
+    entrypoint: sh
+    stdin_open: true
+    tty: true
+    command: |
+      -c '
+      echo "Want to update world?"
+      read $test
+      echo $test
+      #restic -r rclone:mega:/backups restore latest --target / --host Mondo --no-lock
+      '
+    environment:
+      RESTIC_HOSTNAME: "Mondo"
+      RESTIC_PASSWORD: minecraft
+      RESTIC_REPOSITORY: "rclone:mega:/backups"
+    volumes:
+      - server:/data
+      - ./rclone.conf:/root/.config/rclone/rclone.conf
+
+volumes:
+  server:
+    external: true
