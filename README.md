@@ -1,6 +1,6 @@
 # Distributed Minecraft Server Proj
 ## Importante
-Ricordarsi di creare un .env inserendo `IP_SERVER=<ipRadminOrZeroTier>`
+Ricordarsi di creare un server.env all'interno della cartella env contenente `IP_SERVER=<IP_Utente_ZeroTier>`
 
 ### Avviare il server comprendendo il docker compose up --build
 `./run-server.sh`
