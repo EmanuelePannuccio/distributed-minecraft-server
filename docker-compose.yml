@@ -33,9 +33,9 @@ services:
       EULA: "TRUE"
       ONLINE_MODE: "FALSE"
       VERSION: "1.19.2"
-      TYPE: VANILLA
-      # TYPE: FORGE
-      # FORGE_VERSION: "43.4.0"
+      # TYPE: VANILLA
+      TYPE: FORGE
+      FORGE_VERSION: "43.4.0"
       REMOVE_OLD_MODS: "FALSE"
       RESTIC_HOSTNAME: "Mondo"
       RESTIC_PASSWORD: minecraft
@@ -52,9 +52,6 @@ services:
       DUCKDNS_TOKEN: "5c4d1f47-f5cd-45a9-9942-7f2c879aa9db"
       SEED: 6967698014342602014
       RCLONE_CONFIG: /.config/rclone/rclone.conf
-      OPS: |
-        hAcK_Engine
-        siakoo010
     volumes:
       - server:/data
       - ./mods:/data/mods
