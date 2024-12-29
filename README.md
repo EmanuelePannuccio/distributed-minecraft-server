@@ -41,6 +41,6 @@ Ricordarsi di creare un .env inserendo `IP_SERVER=<ipRadminOrZeroTier>`
 `\\wsl.localhost\docker-desktop\mnt\docker-desktop-disk\data\docker\volumes\server\_data`
 
 ## ------------------------- WSL Requirements -------------------
-`sudo apt  install mysql-client`
-`sudo apt  install restic`
-`sudo apt  install rclone`
+`sudo apt  install mysql-client
+sudo apt  install restic
+sudo apt  install rclone`
