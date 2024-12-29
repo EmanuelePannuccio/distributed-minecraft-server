@@ -3,7 +3,15 @@ services:
     image: docker.io/tofran/restic-rclone:0.17.0_1.68.2
     container_name: theboys-restore-backup
     restart: "no"
-    command: ["-r","rclone:mega:/backups","restore","latest","--target","/", "--host","Mondo","--no-lock"]
+    # command: ["-r","rclone:mega:/backups","restore","latest","--target","/", "--host","Mondo","--no-lock"]
+    entrypoint: bash
+    command: |
+        -c 'echo "Checking stale locks"
+        while [ $(restic -r rclone:mega:/backups list locks | wc -l) -gt 0 ]; do
+          echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/backups list locks | wc -l) "1"
+          sleep 10s
+        done
+        restic -r rclone:mega:/backups restore latest --target / --host Mondo'
     environment:
       RESTIC_HOSTNAME: "Mondo"
       RESTIC_PASSWORD: minecraft
