@@ -3,7 +3,6 @@ services:
     image: docker.io/tofran/restic-rclone:0.17.0_1.68.2
     container_name: theboys-restore-backup
     restart: "no"
-    # command: ["-r","rclone:mega:/backups","restore","latest","--target","/", "--host","Mondo","--no-lock"]
     entrypoint: sh
     command: |
         -c 'echo "Checking stale locks"
@@ -33,7 +32,9 @@ services:
       EULA: "TRUE"
       ONLINE_MODE: "FALSE"
       VERSION: "1.19.2"
-      # TYPE: VANILLA
+      OPS: |
+        hAcK_Engine
+        siakoo010
       TYPE: FORGE
       FORGE_VERSION: "43.4.0"
       REMOVE_OLD_MODS: "FALSE"
