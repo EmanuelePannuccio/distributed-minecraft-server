@@ -14,7 +14,7 @@ Ricordarsi di creare un .env inserendo `IP_SERVER=<ipRadminOrZeroTier>`
 ### Lista Restic Snapshots
 `restic -r rclone:mega:/backups snapshots`
 
-### Oppure
+### Oppure su WSL
 ```
 docker run --rm -e RESTIC_HOSTNAME="Mondo" \
            -e RESTIC_PASSWORD=minecraft \
