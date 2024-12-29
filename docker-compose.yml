@@ -33,9 +33,9 @@ services:
       EULA: "TRUE"
       ONLINE_MODE: "FALSE"
       VERSION: "1.19.2"
-      TYPE: VANILLA
-      # TYPE: FORGE
-      # FORGE_VERSION: "43.4.0"
+      # TYPE: VANILLA
+      TYPE: FORGE
+      FORGE_VERSION: "43.4.0"
       REMOVE_OLD_MODS: "FALSE"
       RESTIC_HOSTNAME: "Mondo"
       RESTIC_PASSWORD: minecraft
