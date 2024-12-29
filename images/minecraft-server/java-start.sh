@@ -16,7 +16,7 @@ cleanup() {
   echo "Backup starting"
   
   mysql -u "$MYSQL_USERNAME" -P $MYSQL_PORT -h "$MYSQL_HOST" $MYSQL_DB -sN -e "UPDATE mutex SET connection = 0 WHERE connection = 1"
-  restic -r rclone:mega:/backups forget --keep-last 5 --prune
+  restic -r rclone:mega:/backups forget --keep-last 10 --prune
   restic backup -r rclone:mega:/backups --tag mc_backups --tag $RESTIC_TAG -vv --host Mondo /data/world
   
   echo "Backup end"
