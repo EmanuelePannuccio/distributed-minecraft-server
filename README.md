@@ -3,44 +3,44 @@
 Ricordarsi di creare un .env inserendo `IP_SERVER=<ipRadminOrZeroTier>`
 
 ### Avviare il server comprendendo il docker compose up --build
-./run-server.sh
+`./run-server.sh`
 
 ### Avviare la RCON-cli del server mc
-docker exec -it theboys rcon-cli
+`docker exec -it theboys rcon-cli`
 
 ### Avviare backup manuale
-docker compose exec backups backup now
+`docker compose exec backups backup now`
 
 ### Lista Restic Snapshots
-restic -r rclone:mega:/backups snapshots
+`restic -r rclone:mega:/backups snapshots`
 
 ### Oppure
-docker run --rm -e RESTIC_HOSTNAME="Mondo" \
+`docker run --rm -e RESTIC_HOSTNAME="Mondo" \
            -e RESTIC_PASSWORD=minecraft \
            -e RESTIC_REPOSITORY="rclone:mega:/backups" \
            -v server:/data \
            -v ./rclone.conf:/root/.config/rclone/rclone.conf \
            --network default \
-           docker.io/tofran/restic-rclone:0.17.0_1.68.2  -r rclone:mega:/backups snapshots
+           docker.io/tofran/restic-rclone:0.17.0_1.68.2  -r rclone:mega:/backups snapshots`
 
 ### Ripristino Restic Snapshot
-restic -r rclone:mega:/backups restore SNAPSHOT_ID --target / --host Mondo --no-lock
+`restic -r rclone:mega:/backups restore SNAPSHOT_ID --target / --host Mondo --no-lock`
 
 ### id rete ZeroTier
-9f77fc393ecb9ae7
+`9f77fc393ecb9ae7`
 
 ### DDNS IP
-unimemc.duckdns.org
+`unimemc.duckdns.org`
 
 ### DDNS test
-nslookup unimemc.duckdns.org
+`nslookup unimemc.duckdns.org`
 ### DDNS test esplicito
-nslookup unimemc.duckdns.org 8.8.8.8
+`nslookup unimemc.duckdns.org 8.8.8.8`
 
 ### Percorso WSL del mondo nel volume docker
-\\wsl.localhost\docker-desktop\mnt\docker-desktop-disk\data\docker\volumes\server\_data
+`\\wsl.localhost\docker-desktop\mnt\docker-desktop-disk\data\docker\volumes\server\_data`
 
 ## ------------------------- WSL Requirements -------------------
-sudo apt  install mysql-client
-sudo apt  install restic
-sudo apt  install rclone
+`sudo apt  install mysql-client`
+`sudo apt  install restic`
+`sudo apt  install rclone`
