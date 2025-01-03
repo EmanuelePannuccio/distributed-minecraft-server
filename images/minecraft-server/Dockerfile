@@ -8,4 +8,4 @@ COPY --chown=root:root java-start.sh /java-start.sh
 
 RUN chmod 777 -R /start-finalExec
 RUN chmod 777 -R /java-start.sh
-
+RUN chmod 777 -R /data/
