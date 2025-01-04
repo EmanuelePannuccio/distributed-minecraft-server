@@ -8,6 +8,16 @@ Ricordarsi di creare un server.env all'interno della cartella env contenente `IP
 ### Avviare la RCON-cli del server mc
 `docker exec -it theboys rcon-cli`
 
+### Status Lock
+```
+MYSQL_PWD="1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf" mysql -u "test_eightgray" -P 3305 -h "ajv81.h.filess.io" "test_eightgray" -sN -e "SELECT connection FROM mutex";
+```
+
+### Unlock mutex
+```
+MYSQL_PWD="1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf" mysql -u "test_eightgray" -P 3305 -h "ajv81.h.filess.io" "test_eightgray" -sN -e "UPDATE mutex SET connection = 0 WHERE connection = 1";
+```
+
 ### Avviare backup manuale
 `docker compose exec backups backup now`
 
