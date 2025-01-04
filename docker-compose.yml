@@ -1,21 +1,19 @@
 services:
   restore-backup:
-    image: docker.io/tofran/restic-rclone:0.17.0_1.68.2
+    image: restic-rclone
+    build: ./images/restic-rclone
     container_name: theboys-restore-backup
     restart: "no"
-    entrypoint: sh
-    command: |
-        -c 'echo "Checking stale locks"
-        while [ $(restic -r rclone:mega:/backups list locks | wc -l) -gt 0 ]; do
-          echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/backups list locks | wc -l) "1"
-          sleep 10s
-        done
-        restic -r rclone:mega:/backups restore latest --target / --host Mondo'
     environment:
       RESTIC_HOSTNAME: "Mondo"
       RESTIC_PASSWORD: minecraft
       RESTIC_REPOSITORY: "rclone:mega:/backups"
       RCLONE_CONFIG: /.config/rclone/rclone.conf
+      MYSQL_PWD: "1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf"
+      MYSQL_USERNAME: "test_eightgray"
+      MYSQL_DB: "test_eightgray"
+      MYSQL_HOST: "ajv81.h.filess.io"
+      MYSQL_PORT: 3305
     volumes:
       - server:/data
       - ./rclone.conf:/.config/rclone/rclone.conf
