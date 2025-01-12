@@ -44,6 +44,7 @@ services:
       RESTIC_REPOSITORY: "rclone:mega:/backups"
       RESTIC_TAG: siakoo
       MAX_PLAYERS: 8
+      ALLOW_FLIGHT: "TRUE"
       SPAWN_PROTECTION: 0
       MEMORY: "6G"
       MYSQL_PWD: "1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf"
