@@ -18,6 +18,9 @@ MYSQL_PWD="1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf" mysql -u "test_eightgray" -
 MYSQL_PWD="1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf" mysql -u "test_eightgray" -P 3305 -h "ajv81.h.filess.io" "test_eightgray" -sN -e "UPDATE mutex SET connection = 0 WHERE connection = 1";
 ```
 
+### Unlock repo su MEGA
+`./utils/unlock-repo.sh`
+
 ### Avviare backup manuale
 `docker compose exec backups backup now`
 
