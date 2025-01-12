@@ -34,6 +34,8 @@ services:
       OPS: |
         hAcK_Engine
         siakoo010
+        Jukiba
+        OiN0Tn4
       TYPE: FORGE
       FORGE_VERSION: "43.4.0"
       REMOVE_OLD_MODS: "FALSE"
