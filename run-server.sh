@@ -7,6 +7,7 @@ fi
 check_backup() {
   while true; do
     read -p "Do you want to backup the current Minecraft world? (y/n): " user_input
+    user_input=${user_input:-y}
     case "$user_input" in
       y|Y)
         echo "You chose to backup the Minecraft world."
