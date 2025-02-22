@@ -45,7 +45,7 @@ services:
       MAX_PLAYERS: 8
       ALLOW_FLIGHT: "TRUE"
       SPAWN_PROTECTION: 0
-      MEMORY: "7G"
+      MEMORY: "6G"
       MYSQL_PWD: "1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf"
       MYSQL_USERNAME: "test_eightgray"
       MYSQL_DB: "test_eightgray"
