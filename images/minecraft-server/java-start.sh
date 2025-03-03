@@ -4,8 +4,8 @@
 
 check_or_wait_lock() {
   echo "Checking existing or stale lock.."
-  while [ $(restic -r rclone:mega:/backups list locks | wc -l) -gt 0 ]; do
-    echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/backups list locks | wc -l) "1"
+  while [ $(restic -r rclone:mega:/cobblemon-bkps list locks | wc -l) -gt 0 ]; do
+    echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/cobblemon-bkps list locks | wc -l) "1"
     sleep 10s
   done
 }
@@ -15,8 +15,8 @@ cleanup() {
   echo "Container stopped, performing backup..."
   echo "Backup starting"
   
-  restic -r rclone:mega:/backups forget --keep-last 10 --prune
-  restic backup -r rclone:mega:/backups --tag mc_backups --tag $RESTIC_TAG -vv --host Mondo /data/world
+  restic -r rclone:mega:/cobblemon-bkps forget --keep-last 10 --prune
+  restic backup -r rclone:mega:/cobblemon-bkps --tag mc_backups --tag $RESTIC_TAG -vv --host Mondo /data/world
   
   echo "Backup end"
   mysql -u "$MYSQL_USERNAME" -P $MYSQL_PORT -h "$MYSQL_HOST" $MYSQL_DB -sN -e "UPDATE mutex SET connection = 0 WHERE connection = 1"

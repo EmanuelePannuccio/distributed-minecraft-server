@@ -7,7 +7,7 @@ services:
     environment:
       RESTIC_HOSTNAME: "Mondo"
       RESTIC_PASSWORD: minecraft
-      RESTIC_REPOSITORY: "rclone:mega:/backups"
+      RESTIC_REPOSITORY: "rclone:mega:/cobblemon-bkps"
       RCLONE_CONFIG: /.config/rclone/rclone.conf
       MYSQL_PWD: "1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf"
       MYSQL_USERNAME: "test_eightgray"
@@ -15,7 +15,8 @@ services:
       MYSQL_HOST: "ajv81.h.filess.io"
       MYSQL_PORT: 3305
     volumes:
-      - server:/data
+      # - server:/data
+      - ./world:/data/world
       - ./rclone.conf:/.config/rclone/rclone.conf
 
   mc:
@@ -30,22 +31,22 @@ services:
       RCON_PASSWORD: "minecraft"
       EULA: "TRUE"
       ONLINE_MODE: "FALSE"
-      VERSION: "1.19.2"
+      VERSION: "1.20.1"
       OPS: |
         hAcK_Engine
         siakoo010
         Jukiba
       TYPE: FORGE
-      FORGE_VERSION: "43.4.0"
+      FORGE_VERSION: "47.3.0"
       REMOVE_OLD_MODS: "FALSE"
       RESTIC_HOSTNAME: "Mondo"
       RESTIC_PASSWORD: minecraft
-      RESTIC_REPOSITORY: "rclone:mega:/backups"
+      RESTIC_REPOSITORY: "rclone:mega:/cobblemon-bkps"
       RESTIC_TAG: siakoo
       MAX_PLAYERS: 8
       ALLOW_FLIGHT: "TRUE"
       SPAWN_PROTECTION: 0
-      MEMORY: "6G"
+      MEMORY: "8G"
       MYSQL_PWD: "1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf"
       MYSQL_USERNAME: "test_eightgray"
       MYSQL_DB: "test_eightgray"
@@ -56,6 +57,7 @@ services:
       RCLONE_CONFIG: /.config/rclone/rclone.conf
     volumes:
       - server:/data
+      - ./world:/data/world
       - ./mods:/data/mods
       - ./rclone.conf:/.config/rclone/rclone.conf
     depends_on:
@@ -67,7 +69,7 @@ services:
     container_name: theboys-backup
     environment:
       RESTIC_HOSTNAME: "Mondo"
-      RESTIC_REPOSITORY: "rclone:mega:/backups"
+      RESTIC_REPOSITORY: "rclone:mega:/cobblemon-bkps"
       RESTIC_PASSWORD: minecraft
       BACKUP_INTERVAL: "30m"
       BACKUP_METHOD: restic
@@ -78,8 +80,8 @@ services:
       RCLONE_CONFIG: "/config/rclone/rclone.conf"
       PRE_BACKUP_SCRIPT: |
         echo "Check lock backup!"
-        while [ $(restic -r rclone:mega:/backups list locks | wc -l) -gt 0 ]; do
-          echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/backups list locks | wc -l) "1"
+        while [ $(restic -r rclone:mega:/cobblemon-bkps list locks | wc -l) -gt 0 ]; do
+          echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/cobblemon-bkps list locks | wc -l) "1"
           sleep 10s
         done
         echo "Backup on!"
@@ -89,8 +91,8 @@ services:
     entrypoint: bash
     command: |
         -c 'echo "Checking stale locks"
-        while [ $(restic -r rclone:mega:/backups list locks | wc -l) -gt 0 ]; do
-          echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/backups list locks | wc -l) "1"
+        while [ $(restic -r rclone:mega:/cobblemon-bkps list locks | wc -l) -gt 0 ]; do
+          echo "Waiting 10s for unlocking repo -" $(restic -r rclone:mega:/cobblemon-bkps list locks | wc -l) "1"
           sleep 10s
         done
         backup loop'

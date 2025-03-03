@@ -25,21 +25,21 @@ MYSQL_PWD="1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf" mysql -u "test_eightgray" -
 `docker compose exec backups backup now`
 
 ### Lista Restic Snapshots
-`restic -r rclone:mega:/backups snapshots`
+`restic -r rclone:mega:/cobblemon-bkps snapshots`
 
 ### Oppure su WSL
 ```
 docker run --rm -e RESTIC_HOSTNAME="Mondo" \
            -e RESTIC_PASSWORD=minecraft \
-           -e RESTIC_REPOSITORY="rclone:mega:/backups" \
+           -e RESTIC_REPOSITORY="rclone:mega:/cobblemon-bkps" \
            -v server:/data \
            -v ./rclone.conf:/root/.config/rclone/rclone.conf \
            --network default \
-           docker.io/tofran/restic-rclone:0.17.0_1.68.2  -r rclone:mega:/backups snapshots
+           docker.io/tofran/restic-rclone:0.17.0_1.68.2  -r rclone:mega:/cobblemon-bkps snapshots
 ```
 
 ### Ripristino Restic Snapshot
-`restic -r rclone:mega:/backups restore SNAPSHOT_ID --target / --host Mondo --no-lock`
+`restic -r rclone:mega:/cobblemon-bkps restore SNAPSHOT_ID --target / --host Mondo --no-lock`
 
 ### id rete ZeroTier
 `9f77fc393ecb9ae7`

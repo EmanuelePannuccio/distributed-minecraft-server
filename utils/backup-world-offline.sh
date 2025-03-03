@@ -8,7 +8,7 @@ fi
 docker run --rm \
            -e RESTIC_HOSTNAME="Mondo" \
            -e RESTIC_PASSWORD=minecraft \
-           -e RESTIC_REPOSITORY="rclone:mega:/backups" \
+           -e RESTIC_REPOSITORY="rclone:mega:/cobblemon-bkps" \
            -v server:/data \
            -v ./rclone.conf:/root/.config/rclone/rclone.conf \
-           docker.io/tofran/restic-rclone:0.17.0_1.68.2 backup -r rclone:mega:/backups --tag mc_backups --tag siakoo -vv --host Mondo /data/world
+           docker.io/tofran/restic-rclone:0.17.0_1.68.2 backup -r rclone:mega:/cobblemon-bkps --tag mc_backups --tag siakoo -vv --host Mondo /data/world
