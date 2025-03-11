@@ -37,7 +37,7 @@ services:
         siakoo010
         Jukiba
       TYPE: FORGE
-      FORGE_VERSION: "47.3.0"
+      FORGE_VERSION: "47.4.0"
       REMOVE_OLD_MODS: "FALSE"
       RESTIC_HOSTNAME: "Mondo"
       RESTIC_PASSWORD: minecraft
