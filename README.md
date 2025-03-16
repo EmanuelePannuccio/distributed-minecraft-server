@@ -2,7 +2,7 @@
 ## Importante
 Ricordarsi di creare un server.env all'interno della cartella env contenente `IP_SERVER=<IP_Utente_ZeroTier>`
 
-### Avviare il server comprendendo il docker compose up --build
+### Avviare il server con run_server (che comprende anche docker compose up --build)
 `./run-server.sh`
 
 ### Avviare la RCON-cli del server mc
@@ -51,8 +51,10 @@ docker run --rm -e RESTIC_HOSTNAME="Mondo" \
 `nslookup unimemc.duckdns.org`
 ### DDNS test esplicito
 `nslookup unimemc.duckdns.org 8.8.8.8`
+### DDNS test esplicito 2
+`nslookup unimemc.duckdns.org 1.1.1.1`
 
-### Percorso WSL del mondo nel volume docker
+### Percorso WSL del mondo nel volume docker - non più usato -
 `\\wsl.localhost\docker-desktop\mnt\docker-desktop-disk\data\docker\volumes\server\_data`
 
 ## ------------------------- WSL Requirements -------------------
