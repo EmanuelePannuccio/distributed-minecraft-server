@@ -1,6 +1,7 @@
 # Distributed Minecraft Server Proj
-## Importante
-Ricordarsi di creare un server.env all'interno della cartella env contenente `IP_SERVER=<IP_Utente_ZeroTier>`
+## *Importante*
+Creare un server.env all'interno della directory env/ contenente `IP_SERVER=<IP_Utente_ZeroTier>`
+e sostituire IP_Utente_ZeroTier con il proprio nella rete ZeroTier
 
 ### Avviare il server con run_server (che comprende anche docker compose up --build)
 `./run-server.sh`
@@ -8,17 +9,19 @@ Ricordarsi di creare un server.env all'interno della cartella env contenente `IP
 ### Avviare la RCON-cli del server mc
 `docker exec -it theboys rcon-cli`
 
-### Status Lock
+### Status Lock mutex su mysql
 ```
 MYSQL_PWD="1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf" mysql -u "test_eightgray" -P 3305 -h "ajv81.h.filess.io" "test_eightgray" -sN -e "SELECT connection FROM mutex";
 ```
 
-### Unlock mutex
+### Unlock mutex su mysql
 ```
 MYSQL_PWD="1888a3bdbe69d4c1bfb95e0f306c05bfdde425cf" mysql -u "test_eightgray" -P 3305 -h "ajv81.h.filess.io" "test_eightgray" -sN -e "UPDATE mutex SET connection = 0 WHERE connection = 1";
 ```
+`./utils/db.sh status`
+`./utils/db.sh unlock`
 
-### Unlock repo su MEGA
+### Unlock restic repo su MEGA
 `./utils/unlock-repo.sh`
 
 ### Avviare backup manuale
@@ -49,9 +52,9 @@ docker run --rm -e RESTIC_HOSTNAME="Mondo" \
 
 ### DDNS test
 `nslookup unimemc.duckdns.org`
-### DDNS test esplicito
+### DDNS test esplicito Google DNS
 `nslookup unimemc.duckdns.org 8.8.8.8`
-### DDNS test esplicito 2
+### DDNS test esplicito CloudFlare
 `nslookup unimemc.duckdns.org 1.1.1.1`
 
 ### Percorso WSL del mondo nel volume docker - non più usato -
